@@ -2,6 +2,7 @@
 
 from ringbuffer import *
 import random
+from math import ceil
 
 class GuitarString:
     def __init__(self, frequency: float):
@@ -9,11 +10,13 @@ class GuitarString:
         Create a guitar string of the given frequency, using a sampling rate of 44100 Hz
         '''
         # TO-DO: implement this
-        self.capacity = 44100/frequency
-        if (self.capacity != int(self.capacity)): # if capacity is not a whole number
-            self.capacity = int(self.capacity) + 1 # round up the value         
+        self.capacity = ceil(44100/frequency)
+       
         self.buffer = RingBuffer(self.capacity)
         self._ticks = 0
+
+        for _ in range (self.capacity):
+            self.buffer.enqueue(0)
     
     @classmethod
     def make_from_array(cls, init: list[int]):
@@ -34,7 +37,13 @@ class GuitarString:
         Set the buffer to white noise
         '''
         # TO-DO: implement this
-        self.buffer.enqueue(random.uniform(-0.5,0.5))
+        # Clear the buffer and fill it with random noise (values between -0.5 and 0.5)
+        while not self.buffer.is_empty():
+            self.buffer.dequeue()  # Clear any existing values in the buffer
+        
+        # Fill the buffer with random noise
+        for _ in range(self.capacity):
+            self.buffer.enqueue(random.uniform(-0.5, 0.5))  # Add white noise
 
     def tick(self):
         '''
@@ -56,6 +65,8 @@ class GuitarString:
         Return the current sample
         '''
         # TO-DO: implement this
+        if self.buffer.is_empty():
+            return 0
         return self.buffer.peek()
 
     def time(self) -> int:
