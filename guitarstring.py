@@ -38,12 +38,15 @@ class GuitarString:
         '''
         # TO-DO: implement this
         # Clear the buffer and fill it with random noise (values between -0.5 and 0.5)
-        while not self.buffer.is_empty():
-            self.buffer.dequeue()  # Clear any existing values in the buffer
-        
+     
         # Fill the buffer with random noise
         for _ in range(self.capacity):
+            self.buffer.dequeue()
             self.buffer.enqueue(random.uniform(-0.5, 0.5))  # Add white noise
+
+        # if (self.buffer.is_empty()):
+        #     for _ in range (self.buffer.MAX_CAP):
+        #         self.buffer.enqueue(random.uniform(-0.5, 0.5))
 
     def tick(self):
         '''
