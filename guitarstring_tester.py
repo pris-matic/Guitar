@@ -28,6 +28,10 @@ class GuitarStringTester(unittest.TestCase):
             y = stg.buffer.dequeue()
         self.assertAlmostEqual(y, 0.92815942097)
 
+    def gstest_03_check_pluck(self):
+        stg = GuitarString.make_from_array([0,0,0,0,0,0,0,0,0,0])
+        for _ in range(stg.capacity):
+            stg.pluck()
 
 if __name__ == '__main__':
     unittest.defaultTestLoader.testMethodPrefix = 'gstest'
