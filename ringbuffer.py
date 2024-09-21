@@ -16,12 +16,12 @@ class RingBuffer:
         Return number of items currently in the buffer
         '''
         # TO-DO: implement this
-        if (self._rear > self._front):
+        if (self._rear > self._front): # checks whether the read pointer is behind of the write pointer
             return self._rear - self._front
-        elif (self._rear == self._front):
-            return len(self.buffer)
-        elif (self._rear < self._front):
-            return self.MAX_CAP - (self._front - self._rear)
+        elif (self._rear == self._front): # checks whether the read pointer is in the same spot of the write pointer
+            return len(self.buffer) # this would either result in 0, or the length of the buffer itself
+        elif (self._rear < self._front): # checks whether the read pointer is in front of the write pointer
+            return len(self.buffer) - (self._front - self._rear)
 
     def is_empty(self) -> bool:
         '''
