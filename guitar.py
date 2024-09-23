@@ -30,19 +30,40 @@ if __name__ == '__main__':
             if key in keyboard:
                 index = keyboard.index(key)
                 strings[index].pluck()
-                # add strings[index] to the set of currently plucked strings
+                print("key pressed!")
             else:
                 pass
 
+        # issue: for some reason for loops in unusable? making the program laggy, and impossible to finish
 
         # compute the superposition of samples
-        # only compute for the "plucked strings"
-        # can add a diff array to be checked!
-        sample = strings[12].sample()
+        sample = 0
+        for i in range(20):
+            if (strings[i].is_plucked()):
+                sample += strings[i].sample()
         
         # play the sample on standard audio
         play_sample(sample)
 
         # advance the simulation of each guitar string by one step
-        strings[12].tick()
+        # note: if it does tick() for too long, the program would inevitably crash
+        # a reset method can help with this error
+        for i in range(20):
+            if (strings[i].is_plucked()):
+                strings[i].tick()
+                if (strings[i].time() > 141120): # 3.2 seconds * 44100 sample rate
+                    print("key unpressed!")
+                    strings[i].reset()
+
+        '''
+        time until string is unhearable = 3.2 seconds
+        get sample rate
+        string x sample rate = 141120
+        
+        get time ticks is called using time()
+        compare value of time() and string x sample rate
+
+        if time() > string x sample rate
+        reset ticks 
+        '''
 
