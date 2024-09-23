@@ -33,7 +33,7 @@ if __name__ == '__main__':
 
         # compute the superposition of samples
         sample = string_A.sample() + string_C.sample()
-
+        
         # play the sample on standard audio
         play_sample(sample)
 
