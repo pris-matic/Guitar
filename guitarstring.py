@@ -14,6 +14,7 @@ class GuitarString:
        
         self.buffer = RingBuffer(self.capacity)
         self._ticks = 0
+        self._plucked = False
 
         for _ in range (self.capacity):
             self.buffer.enqueue(0)
@@ -40,13 +41,11 @@ class GuitarString:
         # Clear the buffer and fill it with random noise (values between -0.5 and 0.5)
      
         # Fill the buffer with random noise
+        self._plucked = True
+
         for _ in range(self.capacity):
             self.buffer.dequeue()
             self.buffer.enqueue(random.uniform(-0.5, 0.5))  # Add white noise
-
-        # if (self.buffer.is_empty()):
-        #     for _ in range (self.buffer.MAX_CAP):
-        #         self.buffer.enqueue(random.uniform(-0.5, 0.5))
 
     def tick(self):
         '''
@@ -78,4 +77,21 @@ class GuitarString:
         '''
         # TO-DO: implement this
         return self._ticks
-        
+    
+    def reset(self):
+        '''
+        Resets the number of ticks when the sound becomes faint
+        '''
+        # clears the string of any of its content until it is plucked again
+        self._ticks = 0
+        self._plucked = False
+
+        for _ in range (self.capacity):
+            self.buffer.dequeue()
+            self.buffer.enqueue(0)
+    
+    def is_plucked(self):
+        '''
+        Checks whether the string was recently plucked
+        '''
+        return self._plucked

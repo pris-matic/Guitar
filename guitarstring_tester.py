@@ -29,9 +29,15 @@ class GuitarStringTester(unittest.TestCase):
         self.assertAlmostEqual(y, 0.92815942097)
 
     def gstest_03_check_pluck(self):
-        stg = GuitarString.make_from_array([0,0,0,0,0,0,0,0,0,0])
+        stg = GuitarString.make_from_array([0.5,0,0,0.3,-0.15,0.2,0,-0.1,0,0])
         for _ in range(stg.capacity):
             stg.pluck()
+
+    def gstest_04_check_time(self):
+        stg = GuitarString.make_from_array([0.5,0,0,0.3,-0.15,0.2,0,-0.1,0,0])
+        for _ in range(stg.capacity):
+            stg.tick()
+        self.assertEqual(stg.time(),10)
 
 if __name__ == '__main__':
     unittest.defaultTestLoader.testMethodPrefix = 'gstest'
