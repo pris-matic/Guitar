@@ -47,23 +47,13 @@ if __name__ == '__main__':
 
         # advance the simulation of each guitar string by one step
         # note: if it does tick() for too long, the program would inevitably crash
-        # a reset method can help with this error
         for i in range(20):
             if (strings[i].is_plucked()):
                 strings[i].tick()
-                if (strings[i].time() > 141120): # 3.2 seconds * 44100 sample rate
+                # the reset condition that will make the string come to a halt
+                # the higher the frequency, the less ticks are required for the sound to become faint
+                if (strings[i].time() > 176400*(0.964176**i)): 
                     print("key unpressed!")
                     strings[i].reset()
 
-        '''
-        time until string is unhearable = 3.2 seconds
-        get sample rate
-        string x sample rate = 141120
-        
-        get time ticks is called using time()
-        compare value of time() and string x sample rate
-
-        if time() > string x sample rate
-        reset ticks 
-        '''
 
