@@ -53,9 +53,6 @@ class GuitarString:
         '''
         # TO-DO: implement this
         
-        ## steps:
-        # deleting the sample at the front of the ring buffer
-        # adding to the end of the ring buffer the average of the first two samples multiplied by energy decay factor
         firstSample = self.buffer.dequeue()
         secondSample = self.buffer.peek()
         energyAve = ((firstSample+secondSample)/2) * 0.996
@@ -85,10 +82,6 @@ class GuitarString:
         # clears the string of any of its content until it is plucked again
         self._ticks = 0
         self._plucked = False
-
-        for _ in range (self.capacity):
-            self.buffer.dequeue()
-            self.buffer.enqueue(0)
     
     def is_plucked(self):
         '''
