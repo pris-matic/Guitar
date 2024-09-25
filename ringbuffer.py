@@ -5,7 +5,6 @@ class RingBuffer:
         '''
         Create an empty ring buffer, with given max capacity
         '''
-        # TO-DO: implement this
         self.MAX_CAP = capacity
         self._front = 0
         self._rear =  0
@@ -15,7 +14,6 @@ class RingBuffer:
         '''
         Return number of items currently in the buffer
         '''
-        # TO-DO: implement this
         if (self._rear > self._front): # checks whether the read pointer is behind of the write pointer
             return self._rear - self._front
         elif (self._rear == self._front): # checks whether the read pointer is in the same spot of the write pointer
@@ -27,7 +25,6 @@ class RingBuffer:
         '''
         Is the buffer empty (size equals zero)?
         '''
-        # TO-DO: implement this
         if (self.size() == 0):
             return True
         else:
@@ -37,7 +34,6 @@ class RingBuffer:
         '''
         Is the buffer full (size equals capacity)?
         '''
-        # TO-DO: implement this
         if (self.size() == self.MAX_CAP):
             return True
         else:
@@ -47,7 +43,6 @@ class RingBuffer:
         '''
         Add item `x` to the end
         '''
-        # TO-DO: implement this
         if (self.is_full()):
             raise RingBufferFull("RingBuffer is currently full!")
         else:
@@ -62,7 +57,6 @@ class RingBuffer:
         '''
         Return and remove item from the front
         '''
-        # TO-DO: implement this
         if (self.is_empty()):
             raise RingBufferEmpty("RingBuffer is empty!")
         else:
@@ -74,7 +68,6 @@ class RingBuffer:
         '''
         Return (but do not delete) item from the front
         '''
-        # TO-DO: implement this
         if (self.is_empty()):
             raise RingBufferEmpty("RingBuffer is empty!")
         else:
