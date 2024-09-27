@@ -27,7 +27,7 @@ if __name__ == '__main__':
         # check if the user has typed a key; if so, process it
         if stdkeys.has_next_key_typed():
             key = stdkeys.next_key_typed()
-            if key in keyboard:
+            if key in keyboard and key != "":
                 index = keyboard.index(key)
                 strings[index].pluck()
             else:
@@ -47,8 +47,6 @@ if __name__ == '__main__':
             if (strings[i].is_plucked()):
                 strings[i].tick()
                 # the reset condition that will make the string come to a halt
-                # the higher the frequency, the less ticks are required for the sound to become faint
-                if (strings[i].time() > 176400*(0.964176**i)): 
-                    strings[i].reset()
-
-
+                if (strings[i].time() > 176400*(0.964176**i)): # the higher the frequency, the less ticks are required for the sound to become faint
+                    strings[i].reset()           
+            
