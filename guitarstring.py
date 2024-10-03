@@ -37,6 +37,7 @@ class GuitarString:
         Set the buffer to white noise
         '''
         self._plucked = True
+        self._ticks = 0
 
         for _ in range(self.capacity):
             self.buffer.dequeue()

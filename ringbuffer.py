@@ -42,10 +42,7 @@ class RingBuffer:
         if (self.is_full()):
             raise RingBufferFull("RingBuffer is currently full!")
         else:
-            if (len(self.buffer) < self.MAX_CAP):
-                self.buffer.append(x)
-            else:
-                self.buffer[self._rear] = x
+            self.buffer[self._rear] = x
 
         self._rear = (self._rear + 1) % self.MAX_CAP
         self._size += 1
