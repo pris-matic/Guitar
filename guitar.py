@@ -47,6 +47,6 @@ if __name__ == '__main__':
             if (strings[i].is_plucked()):
                 strings[i].tick()
                 # the reset condition that will make the string come to a halt
-                if (strings[i].time() > 176400*(0.964176**i)): # the higher the frequency, the less ticks are required for the sound to become faint
-                    strings[i].reset()           
+                if (strings[i].time() > 220500*(0.964176**i)): # the higher the frequency, the less ticks are required for the sound to become faint
+                    strings[i].reset()
             
