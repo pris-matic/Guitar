@@ -8,18 +8,14 @@ class RingBuffer:
         self.MAX_CAP = capacity
         self._front = 0
         self._rear =  0
-        self.buffer = []
+        self.buffer = [None] * capacity
+        self._size = 0
 
     def size(self) -> int:
         '''
         Return number of items currently in the buffer
         '''
-        if (self._rear > self._front): # checks whether the read pointer is behind of the write pointer
-            return self._rear - self._front
-        elif (self._rear == self._front): # checks whether the read pointer is in the same spot of the write pointer
-            return len(self.buffer) # this would either result in 0, or the length of the buffer itself
-        elif (self._rear < self._front): # checks whether the read pointer is in front of the write pointer
-            return len(self.buffer) - (self._front - self._rear)
+        return self._size
 
     def is_empty(self) -> bool:
         '''
@@ -52,6 +48,7 @@ class RingBuffer:
                 self.buffer[self._rear] = x
 
         self._rear = (self._rear + 1) % self.MAX_CAP
+        self._size += 1
 
     def dequeue(self) -> float:
         '''
@@ -62,6 +59,7 @@ class RingBuffer:
         else:
             item = self.buffer[self._front]
             self._front = (self._front + 1) % self.MAX_CAP
+            self._size -= 1
             return item
         
     def peek(self) -> float:
