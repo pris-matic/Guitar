@@ -13,7 +13,6 @@ class GuitarString:
        
         self.buffer = RingBuffer(self.capacity)
         self._ticks = 0
-        self._plucked = False
 
         for _ in range (self.capacity):
             self.buffer.enqueue(0)
@@ -36,7 +35,6 @@ class GuitarString:
         '''
         Set the buffer to white noise
         '''
-        self._plucked = True
         self._ticks = 0
 
         for _ in range(self.capacity):
@@ -73,10 +71,3 @@ class GuitarString:
         '''
         # clears the string of any of its content until it is plucked again
         self._ticks = 0
-        self._plucked = False
-    
-    def is_plucked(self):
-        '''
-        Checks whether the string was recently plucked
-        '''
-        return self._plucked
