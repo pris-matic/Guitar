@@ -11,6 +11,9 @@ if __name__ == '__main__':
     keyboard = "q2we4r5ty7u8i9op-[=]"
 
     strings = []
+    pressed_keys = set()
+    faint_keys = set()
+
     for i in range (20):
         strings.append(GuitarString(440*(1.059463**(i-12))))
     
@@ -30,23 +33,29 @@ if __name__ == '__main__':
             if key in keyboard and key != "":
                 index = keyboard.index(key)
                 strings[index].pluck()
+                pressed_keys.add(strings[index])
             else:
                 pass
 
         # compute the superposition of samples
         sample = 0
-        for i in range(20):
-            if (strings[i].is_plucked()):
-                sample += strings[i].sample()
+        for key in pressed_keys:
+            sample += key.sample()
         
         # play the sample on standard audio
         play_sample(sample)
 
-        # advance the simulation of each guitar string by one step
-        for i in range(20):
-            if (strings[i].is_plucked()):
-                strings[i].tick()
-                # the reset condition that will make the string come to a halt
-                if (strings[i].time() > 220500*(0.964176**i)): # the higher the frequency, the less ticks are required for the sound to become faint
-                    strings[i].reset()
+        for key in pressed_keys:
+            if (key.time() > 220500):
+                faint_keys.add(key)
+                key.reset()
+                print(len(pressed_keys))
+
+        for key in faint_keys:
+            pressed_keys.remove(key)
+
+        faint_keys.clear()
+
+        for key in pressed_keys:
+            key.tick()
             
